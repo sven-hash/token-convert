@@ -104,7 +104,7 @@ export const ConvertPage: FC = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "20px",
+        gap: "5px",
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
@@ -116,7 +116,7 @@ export const ConvertPage: FC = () => {
         <>
           <AlephiumConnectButton />
           <h1>Token converter</h1>
-          <div>
+          <div style={{ textAlign: 'center' }}>
             {tokenBalanceBurnMetadata?.symbol !== undefined 
               ? tokenBalanceBurnMetadata?.symbol 
               : `${contractState?.fields.tokenIdBurn.slice(0, 4)}...${contractState?.fields.tokenIdBurn.slice(-4)}`} 
@@ -124,10 +124,12 @@ export const ConvertPage: FC = () => {
             {tokenBalanceConvertMetadata?.symbol !== undefined 
               ? tokenBalanceConvertMetadata?.symbol 
               : `${contractState?.fields.tokenIdConvert.slice(0, 4)}...${contractState?.fields.tokenIdConvert.slice(-4)}`}
+             <p>Pool balance: {Number(contractState?.fields.balanceConvert) / 10 ** (tokenBalanceConvertMetadata?.decimals ?? 0)} {tokenBalanceConvertMetadata?.symbol}</p>
           </div>
+
           <div>Available Balance: {tokenBalanceBurn !== undefined ? tokenBalanceBurnMetadata !== undefined ? 
-            Number(tokenBalanceBurn.amount) / 10 ** tokenBalanceBurnMetadata.decimals : 
-            Number(tokenBalanceBurn.amount) : 0}</div>
+            (Number(tokenBalanceBurn.amount) / 10 ** tokenBalanceBurnMetadata.decimals).toFixed(2) : 
+            Number(tokenBalanceBurn.amount) : 0} {tokenBalanceBurnMetadata?.symbol}</div>
           <div>
             <input
               type="number"
