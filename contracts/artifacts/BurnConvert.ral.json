@@ -1,0 +1,67 @@
+{
+  "version": "v3.8.5",
+  "name": "BurnConvert",
+  "bytecode": "03021c404601010102000bd3d385e15cb41701a00016002aa1001601ce011600ac010101020014d36bbd048fb41701a0001600340c7ba00016002ba1001601ce001600bd1601ce011600ab",
+  "codeHash": "3a7a6e9c64b4a2f04e340a44d28d200fe3515372c2b81f65fb504edfd41572a1",
+  "fieldsSig": {
+    "names": [
+      "tokenIdBurn",
+      "tokenIdConvert",
+      "balanceConvert"
+    ],
+    "types": [
+      "ByteVec",
+      "ByteVec",
+      "U256"
+    ],
+    "isMutable": [
+      false,
+      false,
+      true
+    ]
+  },
+  "eventsSig": [],
+  "functions": [
+    {
+      "name": "deposit",
+      "paramNames": [
+        "amount"
+      ],
+      "paramTypes": [
+        "U256"
+      ],
+      "paramIsMutable": [
+        false
+      ],
+      "returnTypes": []
+    },
+    {
+      "name": "burnAndConvert",
+      "paramNames": [
+        "amountToBurn"
+      ],
+      "paramTypes": [
+        "U256"
+      ],
+      "paramIsMutable": [
+        false
+      ],
+      "returnTypes": []
+    }
+  ],
+  "constants": [],
+  "enums": [
+    {
+      "name": "ErrorCodes",
+      "fields": [
+        {
+          "name": "NotEnoughFundsContract",
+          "value": {
+            "type": "U256",
+            "value": "0"
+          }
+        }
+      ]
+    }
+  ]
+}
