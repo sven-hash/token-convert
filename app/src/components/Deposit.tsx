@@ -149,7 +149,7 @@ export const DepositPage: FC = () => {
               onClick={() => setAmount(tokenBalanceBurn ? 
                 ((Number(tokenBalanceBurn.amount) / 10 ** (tokenBalanceBurnMetadata?.decimals ?? 0)) * (10 / 100)).toString() 
                 : '0')}
-              disabled={isLoading || connectionStatus !== 'connected'}
+              disabled={isLoading || connectionStatus !== 'connected' || Number(contractState?.fields.balanceConvert) <= 0}
               style={{
                 padding: "8px 16px",
                 fontSize: "14px",
