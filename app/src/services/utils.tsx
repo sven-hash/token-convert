@@ -37,7 +37,7 @@ export const convertToInt = (withdrawAmount: string):[bigint, number] => {
   ]
 }
 
-function getNetwork(): NetworkId {
+export function getNetwork(): NetworkId {
   const network = (process.env.NEXT_PUBLIC_NETWORK ?? "devnet") as NetworkId;
   return network;
 }

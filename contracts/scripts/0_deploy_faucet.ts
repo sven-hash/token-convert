@@ -18,8 +18,8 @@ const deployFaucet: DeployFunction<Settings> = async (
   
     // The initial states of the faucet contract
     initialFields: {
-       tokenIdBurn: '9970013b1e7928c0331bf75c30ebfb89a7898b5442b8bfc1484e06dce755dd00',
-       tokenIdConvert: '83847a67361cd0288e57f4a51dee3a6fafb170f1424e3de83d02676a98d92f00',
+       tokenIdBurn: '11bf07230f5607f626773044414a196d0471d79ba9abc26f148b57b40d983a00',
+       tokenIdConvert: 'a54f0bc6161540e2ab081876e261a80d4fa0578891112fabd7f7b7fc71e90c00',
        balanceConvert: 0n
     }
   })
