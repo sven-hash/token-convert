@@ -26,7 +26,7 @@ export const burnAndConvert = async (
         amount: amount * 10n ** decimalsPower,
       },
     ],
-    attoAlphAmount: 3n * DUST_AMOUNT,
+    attoAlphAmount: DUST_AMOUNT,
   });
 }
 

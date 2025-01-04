@@ -4,7 +4,7 @@ import { contractFactory, convertToInt, getTokenList, Token, tokenMetadata } fro
 import { burnAndConvert } from "@/services/token.service";
 import { BurnConvertTypes } from "my-contracts";
 import { AlephiumConnectButton, useBalance, useWallet } from "@alephium/web3-react";
-import { ONE_ALPH, web3 } from "@alephium/web3";
+import { ONE_ALPH, waitForTxConfirmation, web3 } from "@alephium/web3";
 
 web3.setCurrentNodeProvider(
   (process.env.NEXT_PUBLIC_NODE_URL as string) ??
@@ -28,6 +28,8 @@ export const ConvertPage: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [contractState, setContractState] = useState<BurnConvertTypes.State>();
   const { signer, account, connectionStatus } = useWallet();
+  const [successMessage, setSuccessMessage] = useState<string | JSX.Element>('');
+  const [isWaiting, setIsWaiting] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,19 +86,44 @@ export const ConvertPage: FC = () => {
     }
 
     if (signer && contractState){
-
-      const floatToDecimals = convertToInt(amount)
-      console.log(floatToDecimals)
-      const tx = await burnAndConvert(
-        signer,
-        floatToDecimals[0],
-        floatToDecimals[1],
-        contractState.fields.tokenIdBurn,
-        tokenBalanceBurnMetadata !== undefined ? tokenBalanceBurnMetadata.decimals : Number(3)
-      );
-      updateBalanceForTx(tx.txId,1)
+      try {
+        setIsWaiting(true);
+        const floatToDecimals = convertToInt(amount)
+        console.log(floatToDecimals)
+        const tx = await burnAndConvert(
+          signer,
+          floatToDecimals[0],
+          floatToDecimals[1],
+          contractState.fields.tokenIdBurn,
+          tokenBalanceBurnMetadata !== undefined ? tokenBalanceBurnMetadata.decimals : Number(3)
+        );
+        updateBalanceForTx(tx.txId,1)
+        await waitForTxConfirmation(tx.txId, 1, 10000)
+        
+        // Show success message with explorer link (without timeout)
+        setSuccessMessage(
+          <span>
+            Successfully converted {amount} {tokenBalanceBurnMetadata?.symbol} to {tokenBalanceConvertMetadata?.symbol}
+            {" "}
+            <a 
+              href={`https://explorer.alephium.org/transactions/${tx.txId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#155724', textDecoration: 'underline' }}
+            >
+              View in Explorer
+            </a>
+          </span>
+        );
+        
+        setAmount('');
+      } catch (error) {
+        console.error('Transaction failed:', error);
+        alert('Transaction failed. Please try again.');
+      } finally {
+        setIsWaiting(false);
+      }
     }
-    console.log("Convert button clicked with amount:", amount);
   };
 
   return (
@@ -231,6 +258,32 @@ export const ConvertPage: FC = () => {
           >
             Convert
           </button>
+          {successMessage && (
+            <div style={{
+              padding: '10px',
+              backgroundColor: '#d4edda',
+              color: '#155724',
+              borderRadius: '4px',
+              marginTop: '10px',
+              marginBottom: '10px',
+              textAlign: 'center'
+            }}>
+              {successMessage}
+            </div>
+          )}
+          {isWaiting && (
+            <div style={{
+              padding: '10px',
+              backgroundColor: '#fff3cd',
+              color: '#856404',
+              borderRadius: '4px',
+              marginTop: '10px',
+              marginBottom: '10px',
+              textAlign: 'center'
+            }}>
+              Converting {amount} {tokenBalanceBurnMetadata?.symbol} to {tokenBalanceConvertMetadata?.symbol}... Please wait.
+            </div>
+          )}
         </>
       )}
     </div>
