@@ -117,14 +117,30 @@ export const ConvertPage: FC = () => {
           <AlephiumConnectButton />
           <h1>Token converter</h1>
           <div style={{ textAlign: 'center' }}>
-            {tokenBalanceBurnMetadata?.symbol !== undefined 
-              ? tokenBalanceBurnMetadata?.symbol 
-              : `${contractState?.fields.tokenIdBurn.slice(0, 4)}...${contractState?.fields.tokenIdBurn.slice(-4)}`} 
-             {" "}-{"> "}  
-            {tokenBalanceConvertMetadata?.symbol !== undefined 
-              ? tokenBalanceConvertMetadata?.symbol 
-              : `${contractState?.fields.tokenIdConvert.slice(0, 4)}...${contractState?.fields.tokenIdConvert.slice(-4)}`}
-             <p>Pool balance: {Number(contractState?.fields.balanceConvert) / 10 ** (tokenBalanceConvertMetadata?.decimals ?? 0)} {tokenBalanceConvertMetadata?.symbol}</p>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+              {tokenBalanceBurnMetadata?.logoURI && (
+                <img 
+                  src={tokenBalanceBurnMetadata.logoURI} 
+                  alt={tokenBalanceBurnMetadata.symbol || "token"} 
+                  style={{ width: '24px', height: '24px', borderRadius: '50%' }}
+                />
+              )}
+              {tokenBalanceBurnMetadata?.symbol !== undefined 
+                ? tokenBalanceBurnMetadata?.symbol 
+                : `${contractState?.fields.tokenIdBurn.slice(0, 4)}...${contractState?.fields.tokenIdBurn.slice(-4)}`}
+              {" "}-{"> "}
+              {tokenBalanceConvertMetadata?.logoURI && (
+                <img 
+                  src={tokenBalanceConvertMetadata.logoURI} 
+                  alt={tokenBalanceConvertMetadata.symbol || "token"} 
+                  style={{ width: '24px', height: '24px', borderRadius: '50%' }}
+                />
+              )}
+              {tokenBalanceConvertMetadata?.symbol !== undefined 
+                ? tokenBalanceConvertMetadata?.symbol 
+                : `${contractState?.fields.tokenIdConvert.slice(0, 4)}...${contractState?.fields.tokenIdConvert.slice(-4)}`}
+            </div>
+            <p>Pool balance: {Number(contractState?.fields.balanceConvert) / 10 ** (tokenBalanceConvertMetadata?.decimals ?? 0)} {tokenBalanceConvertMetadata?.symbol}</p>
           </div>
 
           <div>Available Balance: {tokenBalanceBurn !== undefined ? tokenBalanceBurnMetadata !== undefined ? 
