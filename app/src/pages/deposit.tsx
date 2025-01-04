@@ -7,7 +7,7 @@ export default function Deposit() {
     <>
       <Head>
         <title>Deposit</title>
-        <meta name="description" content="Deposit page for Token Faucet" />
+        <meta name="description" content="Deposit page for new token." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
