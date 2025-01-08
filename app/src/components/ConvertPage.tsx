@@ -284,6 +284,21 @@ export const ConvertPage: FC = () => {
               Converting {amount} {tokenBalanceBurnMetadata?.symbol} to {tokenBalanceConvertMetadata?.symbol}... Please wait.
             </div>
           )}
+          <div style={{
+            marginTop: '20px',
+            fontSize: '14px',
+            color: '#666'
+          }}>
+            Developed by{' '}
+            <a 
+              href="https://notrustverify.ch"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#007bff', textDecoration: 'none' }}
+            >
+              No Trust Verify
+            </a>
+          </div>
         </>
       )}
     </div>
