@@ -291,7 +291,7 @@ export const ConvertPage: FC = () => {
           }}>
             Developed by{' '}
             <a 
-              href="https://notrustverify.ch"
+              href="https://twitter.com/notrustverif"
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: '#007bff', textDecoration: 'none' }}
