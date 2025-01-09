@@ -18,6 +18,19 @@ interface TokenBalance {
   amount: bigint;
 }
 
+const formatNumber = (num: number): string => {
+  if (num >= 1000000000) {
+    return (num / 1000000000).toFixed(1) + 'B';
+  }
+  if (num >= 1000000) {
+    return (num / 1000000).toFixed(1) + 'M';
+  }
+  if (num >= 1000) {
+    return (num / 1000).toFixed(1) + 'K';
+  }
+  return num.toFixed(2);
+};
+
 export const ConvertPage: FC = () => {
   const [amount, setAmount] = useState<string>('');
   const { balance, updateBalanceForTx } = useBalance();
@@ -167,7 +180,7 @@ export const ConvertPage: FC = () => {
                 ? tokenBalanceConvertMetadata?.symbol 
                 : `${contractState?.fields.tokenIdConvert.slice(0, 4)}...${contractState?.fields.tokenIdConvert.slice(-4)}`}
             </div>
-            <p>Pool balance: {Number(contractState?.fields.balanceConvert) / 10 ** (tokenBalanceConvertMetadata?.decimals ?? 0)} {tokenBalanceConvertMetadata?.symbol}</p>
+            <p>Pool balance: {formatNumber(Number(contractState?.fields.balanceConvert) / 10 ** (tokenBalanceConvertMetadata?.decimals ?? 0))} {tokenBalanceConvertMetadata?.symbol}</p>
           </div>
 
           <div>Available Balance: {tokenBalanceBurn !== undefined ? tokenBalanceBurnMetadata !== undefined ? 
